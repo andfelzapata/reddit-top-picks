@@ -1,10 +1,32 @@
-import { keyBy }  from 'lodash'
-import ActionTypes from './actionTypes'
+import { keyBy } from 'lodash'
 import redditService from 'services/reddit'
+import ActionTypes from './actionTypes'
 
-export function fetchTopics() {
+function fetchTopicsRequest() {
+  return {
+    type: ActionTypes.TOPICS_FETCHED_REQUEST,
+    isLoading: true,
+  }
+}
 
-  return async(dispatch, getState) => {
+function fetchTopicsSuccess(topicsByUrl) {
+  return {
+    type: ActionTypes.TOPICS_FETCHED_SUCCESS,
+    isLoading: false,
+    topicsByUrl,
+  }
+}
+
+function fetchTopicsFailure(err) {
+  return {
+    type: ActionTypes.TOPICS_FETCHED_FAILURE,
+    isLoading: false,
+    err,
+  }
+}
+
+export default function fetchTopics() {
+  return async (dispatch) => {
     dispatch(fetchTopicsRequest())
 
     try {
@@ -14,30 +36,5 @@ export function fetchTopics() {
     } catch (err) {
       dispatch(fetchTopicsFailure(err))
     }
-
-  }
-
-}
-
-function fetchTopicsRequest() {
-  return {
-    type: ActionTypes.TOPICS_FETCHED_REQUEST,
-    isLoading: true
-  }
-}
-
-function fetchTopicsSuccess(topicsByUrl) {
-  return {
-    type: ActionTypes.TOPICS_FETCHED_SUCCESS,
-    isLoading: false,
-    topicsByUrl
-  }
-}
-
-function fetchTopicsFailure(err) {
-  return {
-    type: ActionTypes.TOPICS_FETCHED_FAILURE,
-    isLoading: false,
-    err
   }
 }

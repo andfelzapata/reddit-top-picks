@@ -3,7 +3,7 @@ import Spinner from 'react-spinkit'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as selectors from 'store/topics/selectors'
-import { fetchTopics } from 'store/actions'
+import fetchTopics from 'store/actions'
 import ListView from 'components/ListView/ListView'
 import './TopicsScreen.css'
 
