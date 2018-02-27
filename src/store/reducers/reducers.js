@@ -1,4 +1,4 @@
-import topics from './topics/reducer'
+import topics from '../topics/reducers'
 
 export {
   topics

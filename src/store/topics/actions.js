@@ -4,15 +4,17 @@ import redditService from 'services/reddit'
 
 export function fetchTopics() {
 
-  dispatch(fetchTopicsRequest())
   return async(dispatch, getState) => {
+    dispatch(fetchTopicsRequest())
+
     try {
       const subRedditArray = await redditService.getDefaultSubReddits()
-      const topicByUrls = keyBy(subRedditArray, subreddit.url)
+      const topicByUrls = keyBy(subRedditArray, subreddit => subreddit.url)
       dispatch(fetchTopicsSuccess(topicByUrls))
     } catch (err) {
       dispatch(fetchTopicsFailure(err))
     }
+
   }
 
 }

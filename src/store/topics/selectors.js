@@ -4,11 +4,11 @@ const getTopicsByUrl = state => {
   return state.topics.topicsByUrl
 }
 
-const getTopicsByUrlArray = (state) => {
+const getTopicsUrlArray = (state) => {
   return keys(state.topics.topicsByUrl)
 }
 
 export {
   getTopicsByUrl,
-  getTopicsByUrlArray
+  getTopicsUrlArray
 }
