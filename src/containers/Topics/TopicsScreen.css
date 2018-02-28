@@ -1,0 +1,29 @@
+.TopicsScreen {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.TopicsScreen ul {
+    list-style: none;
+    padding-left: 0;
+    width: 640px;
+    margin: auto;
+}
+
+.TopicsScreen li {
+    text-align: left;
+    border-bottom: 1px solid #aaa;
+    padding-left: 20px;
+}
+
+.TopicsScreen .Topics__Spinner {
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+}

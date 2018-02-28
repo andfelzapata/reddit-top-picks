@@ -8,12 +8,6 @@ import ListView from 'components/ListView/ListView'
 import './TopicsScreen.css'
 
 class TopicsScreen extends Component {
-  static renderLoading() {
-    return (
-      <Spinner name="circle" className="Topics__Spinner" />
-    )
-  }
-
   componentDidMount() {
     this.props.fetchTopics()
   }
@@ -24,15 +18,20 @@ class TopicsScreen extends Component {
       rowsIdArray,
     } = this.props;
 
-    if (!rowsIdArray) return this.renderLoading()
-
     return (
       <div className="TopicsScreen">
-        <ListView
-          rowsById={rowsById}
-          rowsIdArray={rowsIdArray}
-          renderRow={this.renderRow}
-        />
+        {
+          rowsIdArray.length === 0 &&
+          <Spinner name="circle" className="Topics__Spinner" />
+        }
+        {
+          rowsIdArray.length >= 0 &&
+          <ListView
+            rowsById={rowsById}
+            rowsIdArray={rowsIdArray}
+            renderRow={this.renderRow}
+          />
+        }
       </div>
     )
   }
