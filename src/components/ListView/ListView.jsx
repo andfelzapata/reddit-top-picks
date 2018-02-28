@@ -1,15 +1,20 @@
 import { get } from 'lodash'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
-export default class ListView extends Component {
+const renderRow = row => (
+  <div>
+    <h3>{row.title}</h3>
+    <p>{row.description}</p>
+  </div>
+)
 
-  renderRowById = (rowId) => {
-    return (
-      <li key={rowId}>
-        {this.props.renderRow(get(this.props.rowsById, rowId))}
-      </li>
-    )
-  }
+export default class ListView extends Component {
+  renderRowById = rowId => (
+    <li key={rowId}>
+      {renderRow(get(this.props.rowsById, rowId))}
+    </li>
+  )
 
   render() {
     return (
@@ -18,5 +23,9 @@ export default class ListView extends Component {
       </ul>
     )
   }
+}
 
+ListView.propTypes = {
+  rowsById: PropTypes.shape({}).isRequired,
+  rowsIdArray: PropTypes.arrayOf(PropTypes.string).isRequired,
 }

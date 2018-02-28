@@ -7,8 +7,6 @@ import topics from 'store/reducers/reducers'
 import App from 'App'
 import './index.css'
 
-console.log({topics})
-
 const store = createStore(combineReducers({topics}), applyMiddleware(thunk))
 
 ReactDOM.render(

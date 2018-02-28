@@ -8,33 +8,23 @@ import ListView from 'components/ListView/ListView'
 import './TopicsScreen.css'
 
 class TopicsScreen extends Component {
+  static renderLoading() {
+    return (
+      <Spinner name="circle" className="Topics__Spinner" />
+    )
+  }
 
   componentDidMount() {
     this.props.fetchTopics()
   }
 
-  renderLoading() {
-    return (
-      <Spinner name="circle" className="Topics__Spinner"/>
-    )
-  }
-
-  renderRow(row) {
-    return (
-      <div>
-        <h3>{row.title}</h3>
-        <p>{row.description}</p>
-      </div>
-    )
-  }
-
   render() {
     const {
       rowsById,
-      rowsIdArray
+      rowsIdArray,
     } = this.props;
 
-    if(!rowsIdArray) return this.renderLoading()
+    if (!rowsIdArray) return this.renderLoading()
 
     return (
       <div className="TopicsScreen">
@@ -49,16 +39,18 @@ class TopicsScreen extends Component {
 }
 
 TopicsScreen.propTypes = {
-
+  fetchTopics: PropTypes.func.isRequired,
+  rowsById: PropTypes.shape({}).isRequired,
+  rowsIdArray: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
-const mapSateToProps = (state) => ({
+const mapSateToProps = state => ({
   rowsById: selectors.getTopicsByUrl(state),
-  rowsIdArray: selectors.getTopicsUrlArray(state)
+  rowsIdArray: selectors.getTopicsUrlArray(state),
 })
 
 const mapDispatchToProps = {
-  fetchTopics
+  fetchTopics,
 }
 
 export default connect(mapSateToProps, mapDispatchToProps)(TopicsScreen)
