@@ -11,16 +11,30 @@
     padding-left: 0;
     width: 640px;
     margin: auto;
+
 }
 
 .TopicsScreen li {
     text-align: left;
     border-bottom: 1px solid #aaa;
+    cursor: pointer;
+}
+
+.TopicsScreen li > div {
     padding-left: 20px;
 }
 
+.TopicsScreen li h3 {
+    padding: 10px 0 0 0;
+    margin: 0;
+}
+
+.TopicsScreen li p {
+    padding: 10px 0;
+    margin: 0;
+}
 .TopicsScreen .Topics__Spinner {
-    top: 0;
+    top: 200px;
     bottom: 0;
     margin: auto;
     width: 100px;

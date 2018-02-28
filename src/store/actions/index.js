@@ -1,1 +1,1 @@
-export { default } from 'store/topics/actions'
+export * from 'store/topics/actions'

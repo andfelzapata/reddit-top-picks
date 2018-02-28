@@ -10,7 +10,11 @@ const initialState = Immutable({
 
 export default function reduce(state = initialState, action = {}) {
   const {
-    type, isLoading, err, topicsByUrl,
+    type,
+    err,
+    isLoading,
+    topicsByUrl,
+    selectedTopicUrls,
   } = action
 
   switch (type) {
@@ -30,6 +34,11 @@ export default function reduce(state = initialState, action = {}) {
         ...state,
         isLoading,
         err,
+      }
+    case ActionTypes.TOPICS_SELECTED:
+      return {
+        ...state,
+        selectedTopicUrls,
       }
     default:
       return {

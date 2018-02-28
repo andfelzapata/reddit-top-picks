@@ -1,5 +1,5 @@
 import React from 'react';
-import TopicsScreen from 'containers/Topics/TopicsScreen'
+import TopicsScreen from 'containers/Topics'
 import './App.css';
 
 const App = () => (

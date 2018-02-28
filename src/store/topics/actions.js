@@ -1,5 +1,6 @@
 import { keyBy } from 'lodash'
 import redditService from 'services/reddit'
+import * as selectors from 'store/topics/selectors'
 import ActionTypes from './actionTypes'
 
 function fetchTopicsRequest() {
@@ -25,7 +26,7 @@ function fetchTopicsFailure(err) {
   }
 }
 
-export default function fetchTopics() {
+export function fetchTopics() {
   return async (dispatch) => {
     dispatch(fetchTopicsRequest())
 
@@ -36,5 +37,23 @@ export default function fetchTopics() {
     } catch (err) {
       dispatch(fetchTopicsFailure(err))
     }
+  }
+}
+
+function selecTopicRequest(selectedTopicUrls) {
+  return {
+    type: ActionTypes.TOPICS_SELECTED,
+    selectedTopicUrls,
+  }
+}
+
+export function selectTopic(topicUrl) {
+  return (dispatch, getState) => {
+    const selectedTopics = selectors.getSelectedTopicUrls(getState())
+    const newSelectedTopics = selectedTopics.length < 3 ?
+      selectedTopics.concat(topicUrl) :
+      selectedTopics.slice(1).concat(topicUrl)
+
+    dispatch(selecTopicRequest(newSelectedTopics))
   }
 }
