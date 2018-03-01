@@ -2,10 +2,11 @@ import Immutable from 'seamless-immutable'
 import ActionTypes from './actionTypes'
 
 const initialState = Immutable({
-  topicsByUrl: {},
-  selectedTopicUrls: [],
-  isLoading: false,
   err: null,
+  topicsByUrl: {},
+  isLoading: false,
+  selectedTopicUrls: [],
+  selectionFinalized: false,
 })
 
 export default function reduce(state = initialState, action = {}) {
@@ -15,6 +16,7 @@ export default function reduce(state = initialState, action = {}) {
     isLoading,
     topicsByUrl,
     selectedTopicUrls,
+    selectionFinalized,
   } = action
 
   switch (type) {
@@ -39,6 +41,11 @@ export default function reduce(state = initialState, action = {}) {
       return {
         ...state,
         selectedTopicUrls,
+      }
+    case ActionTypes.TOPIC_SELECTION_FINALIZED:
+      return {
+        ...state,
+        selectionFinalized,
       }
     default:
       return {

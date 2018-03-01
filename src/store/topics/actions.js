@@ -58,6 +58,15 @@ export function selectTopic(topicUrl) {
   }
 }
 
+function finalizeTopicSelectionRequest() {
+  return {
+    type: ActionTypes.TOPIC_SELECTION_FINALIZED,
+    selectionFinalized: true,
+  }
+}
+
 export function finalizeTopicSelection() {
-  return ({ type: ActionTypes.TOPIC_SELECTION_FINALIZED })
+  return (dispatch) => {
+    dispatch(finalizeTopicSelectionRequest())
+  }
 }

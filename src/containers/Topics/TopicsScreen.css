@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    flex-direction: column;
 }
 
 .TopicsScreen ul {
@@ -40,4 +41,17 @@
     width: 100px;
     height: 100px;
     position: absolute;
+}
+
+.NextScreen {
+    position: fixed;
+    top: 50%;
+    right: calc((100vw - 640px)/2 - 90px);
+    background: url('/img/right_arrow.png');
+    background-size: 80px 80px;
+    width: 80px;
+    height: 80px;
+    border: 0;
+    cursor: pointer;
+    outline: none;
 }
