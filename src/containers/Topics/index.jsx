@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Spinner from 'react-spinkit'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as selectors from 'store/topics/selectors'
-import { fetchTopics, selectTopic } from 'store/actions'
+import { fetchTopics, selectTopic, finalizeTopicSelection } from 'store/actions'
 import ListView from 'components/ListView'
 import ListRow from 'components/ListRow'
 import './TopicsScreen.css'
@@ -15,6 +15,10 @@ class TopicsScreen extends Component {
 
   onRowClick = (rowId) => {
     this.props.selectTopic(rowId)
+  }
+
+  onNextScreenClick = () => {
+    this.props.finalizeTopicSelection();
   }
 
   renderRow = (rowId, row) => {
@@ -36,6 +40,7 @@ class TopicsScreen extends Component {
       rowsById,
       rowsIdArray,
       selectedIdsMap,
+      canFinalizeSelection,
     } = this.props;
 
     return (
@@ -46,13 +51,20 @@ class TopicsScreen extends Component {
         }
         {
           rowsIdArray.length > 0 &&
-          <ListView
-            rowsById={rowsById}
-            rowsIdArray={rowsIdArray}
-            renderRow={this.renderRow}
-            onClick={this.onRowClick}
-            selectedIdsMap={selectedIdsMap}
-          />
+          <Fragment>
+            <ListView
+              rowsById={rowsById}
+              rowsIdArray={rowsIdArray}
+              renderRow={this.renderRow}
+              onClick={this.onRowClick}
+              selectedIdsMap={selectedIdsMap}
+            />
+            {
+              !canFinalizeSelection ? null :
+              <button className="NextScreen" onClick={this.onNextScreenClick} />
+
+            }
+          </Fragment>
         }
       </div>
     )
@@ -64,6 +76,8 @@ TopicsScreen.propTypes = {
   selectTopic: PropTypes.func.isRequired,
   rowsById: PropTypes.shape({}).isRequired,
   selectedIdsMap: PropTypes.shape({}).isRequired,
+  canFinalizeSelection: PropTypes.bool.isRequired,
+  finalizeTopicSelection: PropTypes.func.isRequired,
   rowsIdArray: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
@@ -71,11 +85,13 @@ const mapSateToProps = state => ({
   rowsById: selectors.getTopicsByUrl(state),
   rowsIdArray: selectors.getTopicsUrlArray(state),
   selectedIdsMap: selectors.getSelectedTopicUrlsMap(state),
+  canFinalizeSelection: selectors.isTopicSelectionValid(state),
 })
 
 const mapDispatchToProps = {
   fetchTopics,
   selectTopic,
+  finalizeTopicSelection,
 }
 
 export default connect(mapSateToProps, mapDispatchToProps)(TopicsScreen)

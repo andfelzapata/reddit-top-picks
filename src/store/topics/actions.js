@@ -40,7 +40,7 @@ export function fetchTopics() {
   }
 }
 
-function selecTopicRequest(selectedTopicUrls) {
+function selectTopicRequest(selectedTopicUrls) {
   return {
     type: ActionTypes.TOPICS_SELECTED,
     selectedTopicUrls,
@@ -54,6 +54,10 @@ export function selectTopic(topicUrl) {
       selectedTopics.concat(topicUrl) :
       selectedTopics.slice(1).concat(topicUrl)
 
-    dispatch(selecTopicRequest(newSelectedTopics))
+    dispatch(selectTopicRequest(newSelectedTopics))
   }
+}
+
+export function finalizeTopicSelection() {
+  return ({ type: ActionTypes.TOPIC_SELECTION_FINALIZED })
 }
