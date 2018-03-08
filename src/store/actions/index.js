@@ -1,2 +1,2 @@
 export * from 'store/topics/actions'
-export { default } from 'store/posts/actions'
+export * from 'store/posts/actions'

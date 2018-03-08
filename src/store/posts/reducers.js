@@ -4,7 +4,7 @@ import ActionTypes from './actionTypes'
 const initialState = Immutable({
   err: null,
   isLoading: false,
-  currentFilter: '',
+  currentFilter: 'all',
   postsById: undefined,
   currentPostId: undefined,
 })
@@ -15,6 +15,8 @@ export default function reduce(state = initialState, action) {
     type,
     isLoading,
     postsById,
+    currentFilter,
+    currentPostId,
   } = action;
 
   switch (type) {
@@ -34,6 +36,16 @@ export default function reduce(state = initialState, action) {
         ...state,
         isLoading,
         err,
+      }
+    case ActionTypes.POSTS_FILTER_CHANGED:
+      return {
+        ...state,
+        currentFilter,
+      }
+    case ActionTypes.POST_SELECTED:
+      return {
+        ...state,
+        currentPostId,
       }
     default:
       return {

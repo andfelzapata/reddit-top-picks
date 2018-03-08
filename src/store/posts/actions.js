@@ -34,7 +34,7 @@ function fetchSubredditPromises(selectedTopicUrls) {
   return selectedTopicUrls.map(topicUrl => redditService.getPostsFromSubreddit(topicUrl));
 }
 
-export default function fetchPosts() {
+export function fetchPosts() {
   return async (dispatch, getState) => {
     dispatch(fetchPostsRequest())
 
@@ -48,4 +48,26 @@ export default function fetchPosts() {
       dispatch(fetchPostsFailure(err))
     }
   }
+}
+
+function changeFilterRequest(currentFilter) {
+  return {
+    type: ActionTypes.POSTS_FILTER_CHANGED,
+    currentFilter,
+  }
+}
+
+export function changeFilter(newFilter) {
+  return dispatch => dispatch(changeFilterRequest(newFilter))
+}
+
+function selectPostRequest(currentPostId) {
+  return {
+    type: ActionTypes.POST_SELECTED,
+    currentPostId,
+  }
+}
+
+export function selectPost(postId) {
+  return dispatch => dispatch(selectPostRequest(postId))
 }

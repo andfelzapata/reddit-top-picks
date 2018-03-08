@@ -29,7 +29,7 @@ class RedditService {
   }
 
   static parseThumbnail(post) {
-    return RedditService.validateUrl(get(post, 'post.thumbnail'));
+    return RedditService.validateUrl(get(post, 'data.thumbnail'));
   }
 
   static async getDefaultSubReddits() {
@@ -74,8 +74,8 @@ class RedditService {
         topicUrl: subredditUrl,
         id: get(post, 'data.id'),
         title: get(post, 'data.title'),
-        url: this.parseUrl(body, post),
-        thumbnail: this.parseThumbnail(post),
+        url: RedditService.parseUrl(body, post),
+        thumbnail: RedditService.parseThumbnail(post),
       }
     })
   }

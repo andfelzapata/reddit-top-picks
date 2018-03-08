@@ -1,14 +1,29 @@
-import { keys } from 'lodash'
+import { keys, get } from 'lodash'
+
+const postsLoading = state => state.posts.isLoading
 
 const getPosts = (state) => {
-  const { postsById } = state.posts
-  const postsIdArray = keys(postsById)
+  const {
+    postsById,
+    currentFilter,
+  } = state.posts
+
+  window.postsById = postsById
+
+  const postsIdArray = currentFilter === 'all' ?
+    keys(postsById) :
+    keys(postsById).filter(postId => postsById[postId].topicUrl === currentFilter)
+
   return [postsById, postsIdArray]
 }
 
-const postsLoading = state => state.posts.isLoading
+const getCurrentFilter = state => state.posts.currentFilter
+
+const getCurrentPost = state => get(state.posts.postsById, state.posts.currentPostId)
 
 export {
   getPosts,
   postsLoading,
+  getCurrentPost,
+  getCurrentFilter,
 }

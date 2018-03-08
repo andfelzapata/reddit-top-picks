@@ -86,13 +86,18 @@ TopicsScreen.propTypes = {
   rowsIdArray: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
-const mapSateToProps = state => ({
-  rowsById: selectors.getTopicsByUrl(state),
-  topicsLoading: selectors.topicsLoading(state),
-  rowsIdArray: selectors.getTopicsUrlArray(state),
-  selectedIdsMap: selectors.getSelectedTopicUrlsMap(state),
-  canFinalizeSelection: selectors.isTopicSelectionValid(state),
-})
+const mapSateToProps = (state) => {
+  const [topicsByUrl, topicsUrlArray] = selectors.getTopics(state)
+  return {
+    topicsByUrl,
+    topicsUrlArray,
+    rowsById: selectors.getTopicsByUrl(state),
+    topicsLoading: selectors.topicsLoading(state),
+    rowsIdArray: selectors.getTopicsUrlArray(state),
+    selectedIdsMap: selectors.getSelectedTopicUrlsMap(state),
+    canFinalizeSelection: selectors.isTopicSelectionValid(state),
+  }
+}
 
 const mapDispatchToProps = {
   fetchTopics,
